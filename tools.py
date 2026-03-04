@@ -10,6 +10,7 @@ def promedio_de_notas(notas: list[float]) -> float:
     Ejemplo:
     [5.5, 6.0, 4.0]
     """
+    print(">>> TOOL promedio_de_notas EJECUTADO")
 
     #sumamos todas las notas que nos llegan con un iterador
     suma_notas = 0
