@@ -2,6 +2,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 
+from tools import promedio_de_notas
+
 class LLMAgent:
     def __init__(self):
         
@@ -18,7 +20,7 @@ class LLMAgent:
         self.agent = create_agent(
             model=self.model,
             system_prompt="You are a helpfull assistan",
-            tools=[],
+            tools=[promedio_de_notas],
             checkpointer=self.memory
         )
 
@@ -40,4 +42,10 @@ class LLMAgent:
             },
             config=self.config
         )
-        return response["messages"][-1].content
+        content = response["messages"][-1].content
+
+        # Si viene como lista (Gemini suele hacerlo)
+        if isinstance(content, list):
+            return content[0]["text"]
+        
+        return content
