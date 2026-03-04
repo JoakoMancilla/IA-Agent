@@ -35,7 +35,13 @@ header_title = Group(
 
     Text(""),
 
-    Align.center(Text("Powered by Gemini", style="#c4b5fd")),
+    Align.center(
+        Text.assemble(
+            ("Powered by: ", "#f6f5fd"),
+            ("Gemini", f"bold {COLOR_SOFT}"),
+            ("✦", COLOR_MAIN),
+        )
+    ),
 
     Align.center(Text("By JoakoDev", style="dim")),
 )
@@ -44,7 +50,7 @@ header_title = Group(
 console.print(
     Panel(
         Align.center(header_title),
-        title="[bold white]IA-Agent[/bold white]",
+        title="[bold #f6f5fd]IA-Agent[/bold #f6f5fd]",
         title_align="left",
         border_style=COLOR_SOFT,
         padding=(0, 0),
