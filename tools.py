@@ -1,4 +1,10 @@
 from langchain.tools import tool
+from rich.align import Align
+from rich.console import Console
+from rich.text import Text
+from rich.panel import Panel
+from rich.align import Align
+console = Console()
 
 @tool
 def promedio_de_notas(notas: list[float]) -> float:
@@ -10,7 +16,11 @@ def promedio_de_notas(notas: list[float]) -> float:
     Ejemplo:
     [5.5, 6.0, 4.0]
     """
-    print(">>> TOOL promedio_de_notas EJECUTADO")
+    console.print(
+        Align.right(
+            Text("⚙ TOOL: promedio_de_notas ejecutado", style="bold #c4b5fd")
+        )
+    )
 
     #sumamos todas las notas que nos llegan con un iterador
     suma_notas = 0
