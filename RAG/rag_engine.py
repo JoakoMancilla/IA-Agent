@@ -13,6 +13,7 @@ from langchain.agents import create_agent
 from dotenv import load_dotenv
 
 load_dotenv()
+messages = []
 
 
 # 1️⃣ Modelo LLM
@@ -82,9 +83,13 @@ agent = create_agent(
 
 def ask(query):
 
+    messages.append({"role": "user", "content": query})
+
     response = agent.invoke(
         {"messages": [{"role": "user", "content": query}]}
     )
+
+
 
     content = response["messages"][-1].content
 
@@ -99,10 +104,18 @@ def ask(query):
 
 
 while True:
-    query = input("\nPregunta: ")
+    try:
+        query = input("\nPregunta: ")
 
-    if query in ['q', 'exit', 'salir']:
-        print("\n Cerrando RAG... \n")
-        break
+        if query in ['q', 'exit', 'salir']:
+            print("\nCerrando RAG... \n")
+            break
 
-    ask(query)
+        ask(query)
+    except Exception as e:
+        error_msg = str(e)
+
+        if "RESOURCE_EXHAUSTED" in error_msg:
+            print("ERROR: Límite de requests alcanzado")
+        else:
+            print(f"ERROR: {error_msg}")
