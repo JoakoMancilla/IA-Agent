@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
-from llm_agent import LLMAgent
 from os import system
+
+from llm_agent import LLMAgent
+from llm_agent_qgwen import LLMAgentQgwen
+
 from rich.console import Console
 from rich.text import Text
 from rich.panel import Panel
@@ -8,8 +11,8 @@ from rich.align import Align
 from rich.rule import Rule
 from rich.padding import Padding
 from rich.console import Group
-
 from rich.live import Live
+
 import time
 
 
@@ -21,6 +24,10 @@ COLOR_MAIN = "#601EF8"
 
 load_dotenv()
 agent = LLMAgent()
+
+#Facilitamos la instancia de un 2do agente en caso de acabase los TOKENS
+#EL Cambio debe realizarce manual en la Linea 118 que por defecto es: respuesta = agent.ask(pregunta)
+agent_qwen = LLMAgentQgwen()
 
 system("cls")
 
@@ -108,7 +115,7 @@ while True:
         break
 
     console.print()
-    respuesta = agent.ask(pregunta)
+    respuesta = agent_qwen.ask(pregunta)
 
     type_panel(respuesta, 0.008)
 

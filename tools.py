@@ -4,6 +4,7 @@ from rich.console import Console
 from rich.text import Text
 from rich.panel import Panel
 from rich.align import Align
+import requests
 console = Console()
 
 @tool
@@ -40,3 +41,15 @@ def promedio_de_notas(notas: list[float]) -> float:
         print("Error: Ingresa almenos 2 notas")
 
         return
+    
+@tool
+def fetch_url(url: str) -> str:
+    """Fetch text content from a URL"""
+    console.print(
+        Align.right(
+            Text("⚙ TOOL: fetch_url ejecutado", style="bold #c4b5fd")
+        )
+    )
+    respuesta = requests.get(url, timeout=5.0)
+    respuesta.raise_for_status()
+    return respuesta.text

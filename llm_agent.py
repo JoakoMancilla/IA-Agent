@@ -2,7 +2,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 
-from tools import promedio_de_notas
+from tools import *
 
 class LLMAgent:
     def __init__(self):
@@ -20,7 +20,10 @@ class LLMAgent:
         self.agent = create_agent(
             model=self.model,
             system_prompt="You are a helpfull assistan",
-            tools=[promedio_de_notas],
+            tools=[
+                promedio_de_notas,
+                fetch_url,
+                ],
             checkpointer=self.memory
         )
 
