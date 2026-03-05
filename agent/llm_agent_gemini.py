@@ -2,7 +2,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 
-from tools import *
+from tools.math_tools import *
+from tools.web_tools import *
 
 class LLMAgent:
     def __init__(self):

@@ -1,7 +1,8 @@
 from langchain_fireworks import ChatFireworks
 from langchain_core.messages import HumanMessage, ToolMessage
-from tools import *
 
+from tools.math_tools import *
+from tools.web_tools import *
 
 class LLMAgentQgwen():
 

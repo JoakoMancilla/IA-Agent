@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 from os import system
 
-from llm_agent import LLMAgent
-from llm_agent_qgwen import LLMAgentQgwen
+from agent.llm_agent_gemini import LLMAgent
+from agent.llm_agent_qgwen import LLMAgentQgwen
 
 from rich.console import Console
 from rich.text import Text
