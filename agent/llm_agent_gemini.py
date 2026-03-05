@@ -5,7 +5,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from tools.math_tools import *
 from tools.web_tools import *
 
-class LLMAgent:
+class LLMAgentGemini:
     def __init__(self):
         
         #Modelo

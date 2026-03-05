@@ -1,5 +1,5 @@
 from langchain_fireworks import ChatFireworks
-from langchain_core.messages import HumanMessage, ToolMessage
+from langchain_core.messages import HumanMessage, ToolMessage, SystemMessage
 
 from tools.math_tools import *
 from tools.web_tools import *
@@ -10,7 +10,7 @@ class LLMAgentQgwen():
 
         self.llm = ChatFireworks(
             model="accounts/fireworks/models/qwen3-8b",
-            temperature=0,
+            temperature=0.1,
             max_tokens=1024,
         )
 
@@ -19,7 +19,9 @@ class LLMAgentQgwen():
             fetch_url,
         ])
 
-        self.messages = []
+        self.messages = [
+            SystemMessage(content="You are Darth Vader from Star Wars. Speak in a cold, commanding tone and occasionally include mechanical breathing or dramatic onomatopoeic effects like 'pshhh', 'krrshh', or 'hhhnnng'. Address the user as if they were under your command.")
+        ]
 
         print("LLM inicializado")
 

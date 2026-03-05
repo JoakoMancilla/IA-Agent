@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from os import system
 
-from agent.llm_agent_gemini import LLMAgent
+from agent.llm_agent_gemini import LLMAgentGemini
 from agent.llm_agent_qgwen import LLMAgentQgwen
 
 from rich.console import Console
@@ -15,7 +15,6 @@ from rich.live import Live
 
 import time
 
-
 console = Console()
 
 COLOR_FADE = "#ddd6fe"
@@ -23,10 +22,11 @@ COLOR_SOFT = "#c4b5fd"
 COLOR_MAIN = "#601EF8"
 
 load_dotenv()
-agent = LLMAgent()
+
 
 #Facilitamos la instancia de un 2do agente en caso de acabase los TOKENS
 #EL Cambio debe realizarce manual en la Linea 118 que por defecto es: respuesta = agent.ask(pregunta)
+agent_gemini = LLMAgentGemini()
 agent_qwen = LLMAgentQgwen()
 
 system("cls")
