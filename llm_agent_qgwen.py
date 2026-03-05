@@ -25,10 +25,13 @@ class LLMAgentQgwen():
 
     def ask(self, pregunta):
 
+        #Esta funcion nos permite limitar el historial para que
+        #  el prompt no sea masivo despues de unas cuantas preguntas
+        if len(self.messages) > 12:
+            self.messages = self.messages[-12:]
+
         self.messages.append(HumanMessage(content=pregunta))
-
         response = self.llm.invoke(self.messages)
-
         self.messages.append(response)
 
         # Si el modelo quiere usar herramientas
