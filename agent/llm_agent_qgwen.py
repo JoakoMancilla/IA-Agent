@@ -24,7 +24,7 @@ class LLMAgentQgwen():
 
         self.messages = [
             SystemMessage(content="""Eres un asistente experto en programación. 
-            TIENES ACCESO a una base de datos local llamada 'inacap_vader_docs'. 
+            TIENES ACCESO a una base de datos local llamada 'inacap_docs'. 
             Antes de responder sobre archivos como 'models.py', 'views.py' o apuntes, 
             DEBES usar la herramienta 'consultar_documentos' para ver el código real. 
             No inventes código si puedes consultarlo.""")

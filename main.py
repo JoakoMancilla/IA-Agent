@@ -28,7 +28,6 @@ load_dotenv()
 # === NUEVO: INICIALIZAR RAG ===
 # Puedes pasar un archivo directo y una carpeta entera.
 rutas_a_cargar = [
-    "C:/Joaquin/5.Personal/CV_JoaquinMancilla_2026_Febrero.pdf",
     "C:/Joaquin/1.Academico/Inacap/4to Semestre 2025/Back-End", # Un directorio entero
 ]
 inicializar_rag(rutas_a_cargar)
