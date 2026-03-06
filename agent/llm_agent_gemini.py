@@ -2,8 +2,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
 
-from tools.math_tools import *
-from tools.web_tools import *
+from tools.math_tools import promedio_de_notas
+from tools.web_tools import fetch_url
+from tools.rag_tool import consultar_documentos
 
 class LLMAgentGemini:
     def __init__(self):
@@ -24,6 +25,7 @@ class LLMAgentGemini:
             tools=[
                 promedio_de_notas,
                 fetch_url,
+                consultar_documentos
                 ],
             checkpointer=self.memory
         )

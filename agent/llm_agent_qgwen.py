@@ -1,8 +1,10 @@
 from langchain_fireworks import ChatFireworks
 from langchain_core.messages import HumanMessage, ToolMessage, SystemMessage
 
-from tools.math_tools import *
-from tools.web_tools import *
+from tools.math_tools import promedio_de_notas
+from tools.web_tools import fetch_url
+from tools.rag_tool import consultar_documentos
+
 
 class LLMAgentQgwen():
 
@@ -17,10 +19,15 @@ class LLMAgentQgwen():
         self.llm = self.llm.bind_tools([
             promedio_de_notas,
             fetch_url,
+            consultar_documentos
         ])
 
         self.messages = [
-            SystemMessage(content="You are Darth Vader from Star Wars. Speak in a cold, commanding tone and occasionally include mechanical breathing or dramatic onomatopoeic effects like 'pshhh', 'krrshh', or 'hhhnnng'. Address the user as if they were under your command.")
+            SystemMessage(content="""Eres un asistente experto en programación. 
+            TIENES ACCESO a una base de datos local llamada 'inacap_vader_docs'. 
+            Antes de responder sobre archivos como 'models.py', 'views.py' o apuntes, 
+            DEBES usar la herramienta 'consultar_documentos' para ver el código real. 
+            No inventes código si puedes consultarlo.""")
         ]
 
         print("LLM inicializado")
@@ -50,6 +57,9 @@ class LLMAgentQgwen():
 
                 elif tool_name == "fetch_url":
                     result = fetch_url.invoke(tool_args)
+
+                elif tool_name == "consultar_documentos":
+                    result = consultar_documentos.invoke(tool_args)
 
                 else:
                     result = "Herramienta no encontrada"
