@@ -209,6 +209,7 @@ Ejemplo de interacción:
 🤖 Respuesta:
 Tienes experiencia desarrollando videojuegos con motores como Unity y Godot...
 ```
+<img width="641" height="339" alt="IA-Agent" src="https://github.com/user-attachments/assets/09d53d84-d05a-4e0e-884c-0f0a959c7108" />
 
 ---
 
