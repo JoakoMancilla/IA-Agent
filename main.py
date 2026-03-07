@@ -15,8 +15,6 @@ from rich.live import Live
 
 import time
 
-from tools.rag_tool import inicializar_rag
-
 console = Console()
 
 COLOR_FADE = "#ddd6fe"
@@ -24,15 +22,6 @@ COLOR_SOFT = "#c4b5fd"
 COLOR_MAIN = "#601EF8"
 
 load_dotenv()
-
-# === NUEVO: INICIALIZAR RAG ===
-# Puedes pasar un archivo directo y una carpeta entera.
-rutas_a_cargar = [
-    "C:/Joaquin/1.Academico/Inacap/4to Semestre 2025/Back-End", # Un directorio entero
-]
-inicializar_rag(rutas_a_cargar)
-# ==============================
-
 
 #Facilitamos la instancia de un 2do agente en caso de acabase los TOKENS
 #EL Cambio debe realizarce manual en la Linea 118 que por defecto es: respuesta = agent.ask(pregunta)
@@ -125,7 +114,7 @@ while True:
         break
 
     console.print()
-    respuesta = agent_qgwen.ask(pregunta)
+    respuesta = agent_gemini.ask(pregunta)
 
     type_panel(respuesta, 0.008)
 

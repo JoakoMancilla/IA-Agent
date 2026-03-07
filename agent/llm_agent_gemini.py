@@ -21,7 +21,12 @@ class LLMAgentGemini:
         #Crear al agente
         self.agent = create_agent(
             model=self.model,
-            system_prompt="You are a helpfull assistan",
+            system_prompt=
+            """
+            You are an assistant that can search information in local documents.
+            If the user asks about documents, files, classes, notes, PDFs or code,
+            you MUST use the tool consultar_documentos to search the knowledge base.
+            """,
             tools=[
                 promedio_de_notas,
                 fetch_url,
