@@ -1,14 +1,4 @@
 <div align="center">
-
-```
-    ▄▄▄▄
-    ████
-████    
-████▆▆▆▆
-████████
-▀▀▀▀▀▀▀▀
-```
-
 # IA-Agent
 
 **Multi-agent AI assistant powered by Fireworks AI**
