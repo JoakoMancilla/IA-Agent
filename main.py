@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
 from os import system
 
-from agent.llm_agent_gemini import LLMAgentGemini
-from agent.llm_agent_qgwen import LLMAgentQgwen
+from langchain_core.messages import HumanMessage
 
 from rich.console import Console
 from rich.text import Text
@@ -15,6 +14,9 @@ from rich.live import Live
 
 import time
 
+import uuid
+from graph.graph_manage import crear_grafo
+
 console = Console()
 
 COLOR_FADE = "#ddd6fe"
@@ -23,10 +25,8 @@ COLOR_MAIN = "#601EF8"
 
 load_dotenv()
 
-#Facilitamos la instancia de un 2do agente en caso de acabase los TOKENS
-#EL Cambio debe realizarce manual en la Linea 118 que por defecto es: respuesta = agent.ask(pregunta)
-agent_gemini = LLMAgentGemini()
-agent_qgwen = LLMAgentQgwen()
+grafo = crear_grafo()
+config = {"configurable": {"thread_id": str(uuid.uuid4())}, "recursion_limit": 8}
 
 system("cls")
 
@@ -94,29 +94,56 @@ def type_panel(text, speed=0.01):
 
 # MAIN
 while True:
-
-    pregunta = console.input(
-        f"[bold white]You[/bold white] [bold {COLOR_MAIN}]›[/bold {COLOR_MAIN}] "
-    )
-
-    if pregunta.lower() in ["exit", "q"]:
-        system("cls")
-        console.print(
-            Panel(
-                Align.center(Text("Cerrando agente...", style="bold red")),
-                border_style='#E1452B',
-                padding=(1, 2),
-                width=48,
-            )
+    try:
+        pregunta = console.input(
+            f"[bold white]You[/bold white] [bold {COLOR_MAIN}]›[/bold {COLOR_MAIN}] "
         )
-        time.sleep(1.5)
-        system("cls")
-        break
 
-    console.print()
-    respuesta = agent_gemini.ask(pregunta)
+        if pregunta.lower() in ["exit", "q"]:
+            system("cls")
+            console.print(
+                Panel(
+                    Align.center(Text("Cerrando agente...", style="bold red")),
+                    border_style='#E1452B',
+                    padding=(1, 2),
+                    width=48,
+                )
+            )
+            time.sleep(1.5)
+            system("cls")
+            break
 
-    type_panel(respuesta, 0.008)
+        
+        #CAMPO PARA EXTRAER ESTADO Y RESPUEST DEL AGENTE
+        resultado = grafo.invoke(
+            {
+                "messages": [HumanMessage(content=pregunta)]
+                
+            },
+            config=config
+        )
 
-    console.print()
+        respuesta = resultado["messages"][-1].content
 
+        type_panel(respuesta, 0.008)
+
+        console.print()
+
+    except Exception as e:
+        error_msg = str(e)
+
+        if "RESOURCE_EXHAUSTED" in error_msg:
+            console.print(
+                Align.center(
+                    Text("⚙ ERROR: Límite de requests alcanzado", style="bold red")
+                )
+            )
+            print("")
+        else:
+            print(f"ERROR: {error_msg}")
+            console.print(
+                Align.center(
+                    Text(f"ERROR: {error_msg}", style="bold red")
+                )
+            )
+            print("")

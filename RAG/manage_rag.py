@@ -60,7 +60,7 @@ def conectar_vector_store():
         connection=CONNECTION_STRING,
         use_jsonb=True,
     )
-
+    system("cls")
     console.print("[green]✓ Vector Store conectado[/green]")
 
 
