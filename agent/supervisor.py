@@ -84,15 +84,22 @@ def crear_supervisor(model):
                     for m in agent_results
                 ])
 
+                # Solo historial humano + supervisor, sin mensajes de agentes intermedios
+                historial_limpio = [
+                    m for m in state["messages"]
+                    if isinstance(m, HumanMessage)
+                    or (hasattr(m, "name") and m.name == "supervisor")
+                ]
+
                 synthesis_prompt = [
                     SystemMessage(content=f"""You are a helpful assistant.
-The user asked a question. Specialized agents gathered the following information:
+        The user asked a question. Specialized agents gathered the following information:
 
-{agent_summaries}
+        {agent_summaries}
 
-Synthesize everything into a single clear answer in the same language the user used.
-Do not mention agent names or technical details."""),
-                    _get_user_message(state),
+        Synthesize everything into a single clear answer in the same language the user used.
+        Do not mention agent names or technical details."""),
+                    *historial_limpio,
                 ]
 
                 response = model.invoke(synthesis_prompt)
@@ -108,30 +115,31 @@ Do not mention agent names or technical details."""),
 
         # ── Fase 1: crear plan ──
         user_question = _get_user_message(state)
+        history = state["messages"]
 
         response = model.invoke([SystemMessage(content=SYSTEM_PROMPT), user_question])
         decision = response.content.strip().lower()
 
-        def _direct_response(user_question):
+        def _direct_response(history):
             direct_prompt = [
                 SystemMessage(content="You are a helpful assistant. Answer the user's question directly and concisely. Respond in the same language the user used."),
-                user_question,
+                *history,
             ]
-            direct_response = model.invoke(direct_prompt)
+            resp = model.invoke(direct_prompt)
             return {
-                "messages": [AIMessage(content=direct_response.content, name="supervisor")],
+                "messages": [AIMessage(content=resp.content, name="supervisor")],
                 "next": "FINISH",
                 "plan": [],
                 "step": 0,
             }
 
         if "finish" in decision and not any(a in decision for a in VALID_AGENTS):
-            return _direct_response(user_question)
+            return _direct_response(history)
 
         new_plan = [a for a in decision.replace(" ", "").split(",") if a in VALID_AGENTS]
 
         if not new_plan:
-            return _direct_response(user_question)
+            return _direct_response(history)
 
         _log(f"▹ {' → '.join(new_plan)}")
         return {

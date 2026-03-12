@@ -44,12 +44,12 @@ header_title = Group(
     Align.center(
         Text.assemble(
             ("Powered by: ", "#f6f5fd"),
-            ("Gemini", f"bold {COLOR_SOFT}"),
-            ("✦", COLOR_MAIN),
+            ("Fireworks AI", f"bold {COLOR_SOFT}"),
+            (" ⦣V∠", COLOR_MAIN),
         )
     ),
 
-    Align.center(Text("By JoakoDev", style="dim")),
+    Align.center(Text("By JoakoMancillaDev", style="dim")),
 )
 
 # HEADER
