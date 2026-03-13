@@ -21,7 +21,7 @@ load_dotenv()
 console = Console()
 
 # --- CONFIGURACIÓN POSTGRES ---
-CONNECTION_STRING = "postgresql+psycopg://postgres:7567@localhost:5432/postgres"
+
 COLLECTION_NAME = "inacap_vader_docs"
 
 _vector_store = None

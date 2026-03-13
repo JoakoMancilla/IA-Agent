@@ -28,6 +28,7 @@ If no agents are needed (simple greeting, general question), respond with:
   FINISH
 
 Rules:
+- Evalue use an agent before generate the answer.
 - Analyze ONLY the current message, not previous ones.
 - Only include agents that are truly necessary for THIS message.
 - web_agent: ONLY if the user explicitly provides a URL (http:// or https://) in their message. NEVER use for general knowledge questions.
