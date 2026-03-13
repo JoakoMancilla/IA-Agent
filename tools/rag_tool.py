@@ -1,12 +1,7 @@
 from langchain.tools import tool
-
 from rag.manage_rag import conectar_vector_store, get_vector_store
+from tool_log import log_tool
 
-from rich.console import Console
-from rich.align import Align
-from rich.text import Text
-
-console = Console()
 
 # conectar al iniciar
 conectar_vector_store()
@@ -17,7 +12,7 @@ def consultar_documentos(query: str) -> str:
     Busca información en los archivos locales almacenados en la DB vectorial.
     """
 
-    console.print(Align.right(Text("⚙ TOOL: consultar_documentos (Postgres)", style="bold #c4b5fd")))
+    log_tool("⚙ TOOL: consultar_documentos (Postgres)")
 
     vector_store = get_vector_store()
 

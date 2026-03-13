@@ -1,24 +1,15 @@
 from langchain.tools import tool
 import requests
-
 from bs4 import BeautifulSoup
 
-from rich.align import Align
-from rich.console import Console
-from rich.text import Text
-from rich.align import Align
+from tool_log import log_tool
 
-
-console = Console()
-    
 @tool
 def fetch_url(url: str) -> str:
     """Fetch text content from a URL"""
-    console.print(
-        Align.right(
-            Text("⚙ TOOL: fetch_url ejecutado", style="bold #c4b5fd")
-        )
-    )
+
+    log_tool("⚙ TOOL: fetch_url ejecutado")
+
     respuesta = requests.get(url, timeout=5.0)
     respuesta.raise_for_status()
 

@@ -42,8 +42,8 @@ VALID_AGENTS = ["rag_agent", "math_agent", "web_agent"]
 
 
 def _log(msg: str):
-    console.print(Align.right(Text(msg, style="dim #7c6f9f")))
-
+    #console.print(Align.right(Text(msg, style="dim #7c6f9f")))
+    pass
 
 def _get_user_message(state: dict):
     return next(
