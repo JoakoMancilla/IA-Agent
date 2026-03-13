@@ -1,5 +1,6 @@
 <div align="center">
-# IA-Agent
+
+<h1>IA-Agent</h1>
 
 **Multi-agent AI assistant powered by Fireworks AI**
 
