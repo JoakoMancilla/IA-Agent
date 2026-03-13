@@ -14,8 +14,9 @@ from rich.console import Console
 from rich.align import Align
 from rich.text import Text
 
-#cargamos la API_KEY de GEMINI
+#cargamos las variables de entorno
 load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 console = Console()
@@ -57,7 +58,7 @@ def conectar_vector_store():
     _vector_store = PGVector(
         embeddings=embeddings,
         collection_name=COLLECTION_NAME,
-        connection=CONNECTION_STRING,
+        connection=DATABASE_URL,
         use_jsonb=True,
     )
     system("cls")
