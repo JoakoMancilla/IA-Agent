@@ -1,24 +1,5 @@
 <div align="center">
 
-<p align="center">
-  <svg width="200" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-    <style>
-      text {
-        font-family: monospace;
-        font-size: 28px;
-        font-weight: bold;
-      }
-    </style>
-    <text x="100" y="26"  text-anchor="middle" fill="#6F2EE7">    ▄▄▄▄</text>
-    <text x="100" y="54"  text-anchor="middle" fill="#6C28F7">    ████</text>
-    <text x="100" y="82"  text-anchor="middle" fill="#601EF8">████    </text>
-    <text x="100" y="110" text-anchor="middle" fill="#5B1AF8">████▆▆▆▆</text>
-    <text x="100" y="138" text-anchor="middle" fill="#5313F8">████████</text>
-    <text x="100" y="156" text-anchor="middle" fill="#4A0BF8">▀▀▀▀▀▀▀▀</text>
-  </svg>
-</p>
-
-
 <h1>IA-Agent</h1>
 
 **Multi-agent AI assistant powered by Fireworks AI**
