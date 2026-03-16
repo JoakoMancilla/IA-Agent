@@ -1,0 +1,12 @@
+langchain
+langchain-community
+langchain-fireworks
+langgraph
+langchain-core
+psycopg2-binary
+pgvector
+python-dotenv
+rich
+requests
+beautifulsoup4
+langchain-huggingface
