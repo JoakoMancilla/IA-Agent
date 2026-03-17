@@ -16,8 +16,11 @@ from rich.live import Live
 import time
 import uuid
 
+from langfuse import get_client
+from langfuse.langchain import CallbackHandler
+
 from graph.graph_manage import crear_grafo
-from tool_log import flush_tools   # <-- nuevo import
+from tool_log import flush_tools  
 
 console = Console()
 
@@ -29,8 +32,15 @@ COLOR_DIM  = "#6d6a85"
 
 load_dotenv()
 
+langfuse_handler = CallbackHandler()
+langfuse_client = get_client()
+
 grafo = crear_grafo()
-config = {"configurable": {"thread_id": str(uuid.uuid4())}, "recursion_limit": 8}
+config = {
+    "configurable": {"thread_id": str(uuid.uuid4())},
+    "recursion_limit": 8,
+    "callbacks": [langfuse_handler]
+    }
 
 system("cls")
 
@@ -131,6 +141,7 @@ while True:
         )
         print(" ")
         if pregunta.lower() in ["exit", "q"]:
+            langfuse_client.flush()
             system("cls")
             console.print()
             console.print(
