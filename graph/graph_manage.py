@@ -11,6 +11,7 @@ from agent.supervisor import crear_supervisor
 from agent.rag_agent import crear_rag_agent
 from agent.math_agent import crear_math_agent
 from agent.web_agent import crear_web_agent
+from agent.file_agent import crear_file_agent
 
 
 # ─────────────────────────────────────────
@@ -55,6 +56,7 @@ def crear_grafo():
     rag_node        = crear_rag_agent(model_agentes)
     math_node       = crear_math_agent(model_agentes)
     web_node        = crear_web_agent(model_agentes)
+    file_node       = crear_file_agent(model_agentes)
 
     # Creamos el grafo con nuestro estado
     grafo = StateGraph(AgentState)
@@ -64,12 +66,14 @@ def crear_grafo():
     grafo.add_node("rag_agent",  rag_node)
     grafo.add_node("math_agent", math_node)
     grafo.add_node("web_agent",  web_node)
+    grafo.add_node("file_agent",  file_node)
 
     # Edges fijos
     grafo.add_edge(START, "supervisor")
     grafo.add_edge("rag_agent",  "supervisor")
     grafo.add_edge("math_agent", "supervisor")
     grafo.add_edge("web_agent",  "supervisor")
+    grafo.add_edge("file_agent", "supervisor")
 
     # Edge condicional — el supervisor decide a dónde ir según state["next"]
     grafo.add_conditional_edges(
@@ -79,6 +83,7 @@ def crear_grafo():
             "rag_agent":  "rag_agent",
             "math_agent": "math_agent",
             "web_agent":  "web_agent",
+            "file_agent": "file_agent",
             "FINISH":     END,
         }
     )

@@ -21,7 +21,7 @@ COLOR_DIM  = "#6d6a85"
 
 RUTAS = [
     #"C:/Joaquin/1.Academico/Certificados",
-    "../docs/CV_JoaquinMancilla_2026_Febrero.pdf"
+    "docs/CV_JoaquinMancilla_2026_Febrero.pdf"
 ]
 
 # ── UI ────────────────────────────────────────────────────────────────────────
