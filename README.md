@@ -40,6 +40,8 @@ $ python main.py
 > _
 ```
 
+<img width="1886" height="964" alt="Captura de pantalla 2026-03-12 231603" src="https://github.com/user-attachments/assets/05150759-8846-4b46-aa21-97063959813c" />
+
 <br>
 
 ---
@@ -121,8 +123,8 @@ IA-Agent integra **Langfuse** para monitorear cada paso del sistema en tiempo re
 [langfuse] trace_id=c5a2f1 · agent=math_agent · tokens=120 · latency=0.3s ✔
 ```
 
-<!-- 📸 Pega aquí tu captura de pantalla del dashboard de Langfuse -->
-> *[ screenshot del dashboard de Langfuse — próximamente ]*
+<img width="1914" height="868" alt="Captura de pantalla 2026-03-19 202105" src="https://github.com/user-attachments/assets/31331b64-306e-44e3-b9ca-4570cadba5a8" />
+
 
 ---
 
