@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+load_dotenv()
+
 from os import system
 import threading
 
@@ -30,17 +32,22 @@ COLOR_MAIN = "#601EF8"
 COLOR_BG   = "#f6f5fd"
 COLOR_DIM  = "#6d6a85"
 
-load_dotenv()
 
 langfuse_handler = CallbackHandler()
 langfuse_client = get_client()
 
 grafo = crear_grafo()
+
+thread_id = str(uuid.uuid4())
+
 config = {
-    "configurable": {"thread_id": str(uuid.uuid4())},
+    "configurable": {"thread_id": thread_id},
     "recursion_limit": 8,
-    "callbacks": [langfuse_handler]
+    "callbacks": [langfuse_handler],
+    "metadata": {
+        "langfuse_session_id": thread_id
     }
+}
 
 system("cls")
 

@@ -7,8 +7,8 @@ from tools.rag_tool import consultar_documentos
 def _get_user_message(state: dict):
     """Obtiene el HumanMessage original del usuario."""
     return next(
-        (m for m in state["messages"] if isinstance(m, HumanMessage)),
-        state["messages"][0],
+        (m for m in reversed(state["messages"]) if isinstance(m, HumanMessage)),
+        state["messages"][-1],
     )
 
 
