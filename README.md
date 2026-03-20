@@ -1,98 +1,205 @@
 <div align="center">
 
-<h1>IA-Agent</h1>
+```
+╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║     ██╗ █████╗         █████╗  ██████╗ ███████╗███╗  ██╗████████╗  ║
+║     ██║██╔══██╗       ██╔══██╗██╔════╝ ██╔════╝████╗ ██║╚══██╔══╝  ║
+║     ██║███████║█████╗ ███████║██║  ███╗█████╗  ██╔██╗██║   ██║     ║
+║     ██║██╔══██║╚════╝ ██╔══██║██║   ██║██╔══╝  ██║╚████║   ██║     ║
+║     ██║██║  ██║       ██║  ██║╚██████╔╝███████╗██║ ╚███║   ██║     ║
+║     ╚═╝╚═╝  ╚═╝       ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚══╝   ╚═╝     ║
+║                                                                    ║
+║            Multi-Agent AI System · RAG · CLI · Langfuse            ║
+╚════════════════════════════════════════════════════════════════════╝
+```
 
-**Multi-agent AI assistant powered by Fireworks AI**
-
-[![Python](https://img.shields.io/badge/Python-3.11+-6F2EE7?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![LangGraph](https://img.shields.io/badge/LangGraph-latest-601EF8?style=flat-square)](https://langchain-ai.github.io/langgraph/)
-[![Fireworks AI](https://img.shields.io/badge/Fireworks-AI-5313F8?style=flat-square)](https://fireworks.ai)
-[![License](https://img.shields.io/badge/license-MIT-4A0BF8?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![LangChain](https://img.shields.io/badge/LangChain-Framework-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-pgvector-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org)
+[![Langfuse](https://img.shields.io/badge/Langfuse-Observability-FF6B35?style=for-the-badge&logo=grafana&logoColor=white)](https://langfuse.com)
+[![Rich](https://img.shields.io/badge/Rich-CLI-7E57C2?style=for-the-badge&logo=gnometerminal&logoColor=white)](https://rich.readthedocs.io)
+[![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
 </div>
 
----
-
-## ¿Qué es?
-
-IA-Agent es un asistente de línea de comandos que orquesta múltiples agentes especializados para responder preguntas complejas. Un supervisor analiza cada mensaje del usuario, construye un plan de ejecución y delega a los agentes necesarios — sin loops, sin comportamiento impredecible.
-
-```
-You › en base a mis certificados, me conviene esta oferta? https://...
-
-                              ▹ web_agent → rag_agent
-                              ▹ web_agent  1/2
-                         ⚙ TOOL: fetch_url ejecutado
-                              ▹ rag_agent  2/2
-                         ⚙ TOOL: consultar_documentos (Postgres)
-                              ▹ sintetizando
-
-╭─────────────────────────── IA-Agent ───────────────────────────╮
-│  Considerando tus certificados en desarrollo de software...    │
-╰────────────────────────────────────────────────────────────────╯
-```
-
----
-
-## Arquitectura
-
-```
-Usuario
-  │
-  ▼
-Supervisor  ◄──────────────────────┐
-  │                                │
-  │  crea plan deterministico      │
-  │  [web_agent, rag_agent, ...]   │
-  │                                │
-  ├──► web_agent   🌐 ─────────────┤
-  ├──► rag_agent   📄 ─────────────┤
-  └──► math_agent  🧮 ─────────────┘
-          │
-          ▼
-      síntesis final → Usuario
-```
-
-El **supervisor** es el cerebro: usa el LLM una sola vez para crear el plan, luego lo ejecuta de forma determinística. Una vez que todos los agentes terminan, sintetiza los resultados en una respuesta única y coherente.
-
----
-
-## Agentes
-
-| Agente | Función | Herramienta |
-|--------|---------|-------------|
-| `web_agent` | Navega URLs proporcionadas por el usuario | `fetch_url` |
-| `rag_agent` | Consulta documentos personales (CV, certificados, PDFs) | `consultar_documentos` (Postgres + pgvector) |
-| `math_agent` | Cálculos, promedios, estadísticas | `promedio_de_notas` |
-
----
-
-## Stack
-
-- **[LangGraph](https://langchain-ai.github.io/langgraph/)** — orquestación del grafo de agentes
-- **[Fireworks AI](https://fireworks.ai)** — modelos LLM (`llama-v3p3-70b` para supervisor, `qwen3-8b` para agentes)
-- **[LangChain](https://langchain.com)** — abstracción de agentes y tools
-- **[Rich](https://rich.readthedocs.io)** — UI de terminal
-- **PostgreSQL + pgvector** — base vectorial para RAG
-
----
-
-## Instalación
+<br>
 
 ```bash
-git clone https://github.com/tu-usuario/ia-agent
-cd ia-agent
+$ python main.py
+```
+
+```
+╭──────────────────────────────────────────────────────────────╮
+│  IA-Agent v1.0  │  Multi-Agent · RAG · CLI                   │
+│  Supervisor online · 4 sub-agents loaded · pgvector ready    │
+╰──────────────────────────────────────────────────────────────╯
+
+[supervisor] Agente listo. Escribe tu consulta o 'exit' para salir.
+
+> _
+```
+
+<br>
+
+---
+
+## `$ cat README.md`
+
+**IA-Agent** es un sistema de inteligencia artificial conversacional que corre desde la terminal. Un **agente supervisor** recibe tus consultas y delega al sub-agente más adecuado — ya sea buscar en tus documentos, navegar la web, procesar archivos o resolver matemáticas. Todo el flujo es monitoreable en tiempo real con **Langfuse**.
+
+> `# Proyecto de aprendizaje · AI Agents · RAG · Observabilidad de LLMs`
+
+---
+
+## `$ ls -la agents/`
+
+```
+drwxr-xr-x  agent/
+│
+├── supervisor.py      # Orquestador principal — decide qué agente activa
+│
+├── rag_agent.py       # Búsqueda semántica en documentos propios
+├── web_agent.py       # Búsqueda y extracción de información en la web
+├── file_agent.py      # Lectura e interpretación de archivos del sistema
+└── math_agent.py      # Razonamiento y operaciones matemáticas
+```
+
+```
+[supervisor] Consulta recibida: "¿Cuánto es la raíz cuadrada de 144?"
+[supervisor] → Delegando a: math_agent
+[math_agent] Resolviendo...
+[math_agent] ✔ Resultado: 12
+```
+
+---
+
+## `$ cat architecture.txt`
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Usuario (CLI)                        │
+└────────────────────────────┬────────────────────────────────┘
+                             │
+                             ▼
+               ┌─────────────────────────┐
+               │     Agente Supervisor    │
+               │   (orquesta y enruta)    │
+               └────────────┬────────────┘
+                            │
+          ┌─────────┬───────┴───────┬─────────┐
+          ▼         ▼               ▼         ▼
+     ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐
+     │   RAG   │ │   Web   │ │  File   │ │  Math   │
+     │  Agent  │ │  Agent  │ │  Agent  │ │  Agent  │
+     └────┬────┘ └─────────┘ └─────────┘ └─────────┘
+          │
+          ▼
+   ┌─────────────────────────┐
+   │       RAG Pipeline       │
+   │  ├── Document Loader     │
+   │  ├── Text Splitter       │
+   │  ├── Embeddings          │
+   │  └── PostgreSQL+pgvector │
+   └─────────────────────────┘
+
+  ════════════════════════════════════════
+   Observabilidad end-to-end con Langfuse
+   Trazas · Tokens · Latencia · Costos
+  ════════════════════════════════════════
+```
+
+---
+
+## `$ tail -f langfuse.log`
+
+IA-Agent integra **Langfuse** para monitorear cada paso del sistema en tiempo real: qué agente se activó, cuántos tokens consumió, cuánto tardó y qué respondió.
+
+```
+[langfuse] trace_id=a3f9c2 · agent=rag_agent  · tokens=843 · latency=1.2s ✔
+[langfuse] trace_id=b1d7e8 · agent=web_agent  · tokens=612 · latency=2.4s ✔
+[langfuse] trace_id=c5a2f1 · agent=math_agent · tokens=120 · latency=0.3s ✔
+```
+
+<!-- 📸 Pega aquí tu captura de pantalla del dashboard de Langfuse -->
+> *[ screenshot del dashboard de Langfuse — próximamente ]*
+
+---
+
+## `$ pip install -r requirements.txt`
+
+**Stack tecnológico:**
+
+```python
+dependencies = {
+    "language"  : "Python 3.10+",
+    "framework" : "LangChain",
+    "database"  : "PostgreSQL + pgvector",
+    "llm"       : "Google Gemini / OpenAI API",
+    "observ"    : "Langfuse",
+    "cli"       : "Rich",
+}
+```
+
+---
+
+## `$ ./setup.sh`
+
+**1. Clonar el repositorio**
+
+```bash
+git clone https://github.com/JoakoMancilla/IA-Agent.git
+cd IA-Agent
+```
+
+**2. Crear entorno virtual**
+
+```bash
+# Linux / Mac
+python -m venv venv && source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+```
+
+**3. Instalar dependencias**
+
+```bash
 pip install -r requirements.txt
 ```
 
-Configura tus variables de entorno en `.env`:
+**4. Configurar `.env`**
 
 ```env
-FIREWORKS_API_KEY=your_key_here
-DATABASE_URL=postgresql://user:pass@localhost:5432/dbname
+# LLM
+GOOGLE_API_KEY=tu_api_key
+
+# Base de datos vectorial
+DATABASE_URL=postgresql://usuario:password@localhost:5432/tu_base
+
+# Langfuse — observabilidad
+LANGFUSE_PUBLIC_KEY=tu_public_key
+LANGFUSE_SECRET_KEY=tu_secret_key
+LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-Ejecuta:
+**5. Inicializar pgvector**
+
+```sql
+CREATE EXTENSION vector;
+```
+
+**6. Ingestar documentos**
+
+```bash
+python ingest.py
+
+# [✔] Documentos cargados
+# [✔] Chunks generados
+# [✔] Embeddings almacenados en PostgreSQL
+```
+
+**7. Ejecutar**
 
 ```bash
 python main.py
@@ -100,38 +207,64 @@ python main.py
 
 ---
 
-## Estructura
+## `$ cat project_tree.txt`
 
 ```
-ia-agent/
-├── main.py                  # Entry point y UI de terminal
-├── graph/
-│   └── graph_manage.py      # Definición del grafo LangGraph
+IA-Agent/
+│
+├── main.py                  # Punto de entrada — CLI
+│
 ├── agent/
-│   ├── supervisor.py        # Orquestador principal
-│   ├── rag_agent.py         # Agente de documentos
-│   ├── math_agent.py        # Agente matemático
-│   └── web_agent.py         # Agente web
-└── tools/
-    ├── rag_tool.py          # consultar_documentos
-    ├── math_tools.py        # promedio_de_notas
-    └── web_tools.py         # fetch_url
+│   ├── supervisor.py        # Agente supervisor (orquestador)
+│   ├── rag_agent.py         # Sub-agente RAG
+│   ├── web_agent.py         # Sub-agente de búsqueda web
+│   ├── file_agent.py        # Sub-agente de archivos
+│   └── math_agent.py        # Sub-agente matemático
+│
+├── RAG/
+│   ├── ingest.py            # Carga e indexación de documentos
+│   └── retriever.py         # Recuperación semántica
+│
+├── tools/                   # Herramientas disponibles para los agentes
+│
+├── .env.example
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Decisiones de diseño
+## `$ cat roadmap.md`
 
-**El supervisor no usa LLM para seguir el plan** — solo para crearlo. Esto elimina loops y comportamiento no determinístico. Una vez que existe el plan `["web_agent", "rag_agent"]`, se ejecuta en orden sin consultar al modelo.
-
-**Los agentes siempre reciben el mensaje original del usuario** — no el último mensaje del estado, que podría ser la respuesta de otro agente. Esto evita context bleed entre agentes.
-
-**Los bloques `<think>` de Qwen3 se limpian antes de la síntesis** — el modelo de razonamiento genera thinking interno que LangChain captura en `content`. Se filtra con regex antes de pasar los resultados al supervisor.
+```
+[x] Agente conversacional con RAG
+[x] Arquitectura multi-agente  (supervisor + 4 sub-agentes)
+[x] Base de datos vectorial    (PostgreSQL + pgvector)
+[x] CLI estilizado             (Rich)
+[x] Observabilidad             (Langfuse — en desarrollo)
+[ ] Streaming de respuestas
+[ ] Memoria conversacional persistente
+[ ] Nuevos sub-agentes especializados
+[ ] Tools especializadas por dominio
+[ ] Interfaz web
+```
 
 ---
+
+## `$ cat LICENSE`
+
+```
+MIT License · JoakoMancilla · 2025
+```
+
+<br>
 
 <div align="center">
 
-Made with 🟣 by **JoakoMancillaDev**
+```
+╭──────────────────────────────────────────────────────────────╮
+│   Built while learning · AI Agents · RAG · LLM Observability │
+╰──────────────────────────────────────────────────────────────╯
+```
 
 </div>
