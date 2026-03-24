@@ -2,7 +2,11 @@ from langchain.agents import create_agent
 from langchain_core.messages import AIMessage, HumanMessage
 import re
 
+from langfuse import Langfuse
+
 from tools.web_tools import fetch_url
+
+langfuse = Langfuse()
 
 
 def _get_user_message(state: dict):
@@ -14,23 +18,17 @@ def _get_user_message(state: dict):
 
 def crear_web_agent(model):
 
+    try:
+        system_prompt = langfuse.get_prompt("webAgent").compile()
+        if not system_prompt:
+            raise ValueError("El prompt retornó vacío")
+    except Exception as e:
+        print(f"[web_agent] ERROR al cargar prompt desde Langfuse: {e}")
+        raise
+
     agent = create_agent(
         model=model,
-        system_prompt="""
-You are a web scraping assistant. Your ONLY job is to fetch URLs and extract information.
-
-You have ONE tool: fetch_url
-
-MANDATORY RULES — no exceptions:
-- If the user message contains a URL starting with http:// or https://, you MUST call fetch_url immediately.
-- Do NOT think about whether you can access the internet. You CAN. fetch_url handles it.
-- Do NOT say you lack internet access. You have fetch_url for that.
-- Do NOT skip the tool call. Calling fetch_url is your primary purpose.
-- Call fetch_url ONCE with the exact URL from the user message.
-- After receiving the result, extract and return the relevant information.
-- Return only the final extracted content. No disclaimers. No meta-commentary.
-- Always answer in Spanish.
-""",
+        system_prompt=system_prompt,
         tools=[fetch_url],
     )
 
@@ -39,17 +37,10 @@ MANDATORY RULES — no exceptions:
 
     def web_node(state: dict):
         user_msg = _get_user_message(state)
-
-        response = agent.invoke({
-            "messages": [user_msg]
-        })
-
+        response = agent.invoke({"messages": [user_msg]})
         content = limpiar_think(response["messages"][-1].content)
-
         return {
-            "messages": [
-                AIMessage(content=content, name="web_agent")
-            ],
+            "messages": [AIMessage(content=content, name="web_agent")],
             "next": "supervisor"
         }
 

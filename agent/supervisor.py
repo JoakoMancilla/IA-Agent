@@ -2,11 +2,8 @@ from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 
 from langfuse import Langfuse
 
-from os import system
-
 from rich.console import Console
-from rich.text import Text
-from rich.align import Align
+
 
 console = Console()
 

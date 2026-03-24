@@ -1,11 +1,15 @@
 from langchain.agents import create_agent
 from langchain_core.messages import AIMessage, HumanMessage
+import re
+
+from langfuse import Langfuse
 
 from tools.math_tools import promedio_de_notas
 
+langfuse = Langfuse()
+
 
 def _get_user_message(state: dict):
-    """Obtiene el HumanMessage original del usuario."""
     return next(
         (m for m in reversed(state["messages"]) if isinstance(m, HumanMessage)),
         state["messages"][-1],
@@ -14,47 +18,29 @@ def _get_user_message(state: dict):
 
 def crear_math_agent(model):
 
+    try:
+        system_prompt = langfuse.get_prompt("mathAgent").compile()
+        if not system_prompt:
+            raise ValueError("El prompt retornó vacío")
+    except Exception as e:
+        print(f"[math_agent] ERROR al cargar prompt desde Langfuse: {e}")
+        raise
+
     agent = create_agent(
         model=model,
-        system_prompt="""
-You are a mathematical assistant.
-
-Your job is to solve numerical and mathematical problems.
-
-You may receive questions about:
-- averages
-
-Rules:
-
-If a calculation is required:
-- compute the result carefully
-- show the final result clearly
-
-If a math tool is available, use it when appropriate.
-
-Never guess numbers.
-
-Important:
-- Do NOT output internal reasoning.
-- Do NOT use <think>.
-- Return only the final result and a short explanation.
-
-Always answer in Spanish.
-""",
+        system_prompt=system_prompt,
         tools=[promedio_de_notas],
     )
 
+    def limpiar_think(texto: str) -> str:
+        return re.sub(r"<think>.*?</think>", "", texto, flags=re.DOTALL).strip()
+
     def math_node(state: dict):
         user_msg = _get_user_message(state)
-
-        response = agent.invoke({
-            "messages": [user_msg]
-        })
-
+        response = agent.invoke({"messages": [user_msg]})
+        content = limpiar_think(response["messages"][-1].content)
         return {
-            "messages": [
-                AIMessage(content=response["messages"][-1].content, name="math_agent")
-            ],
+            "messages": [AIMessage(content=content, name="math_agent")],
             "next": "supervisor"
         }
 
