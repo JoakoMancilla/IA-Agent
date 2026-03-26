@@ -40,7 +40,8 @@ $ python main.py
 > _
 ```
 
-<img width="1886" height="964" alt="Captura de pantalla 2026-03-12 231603" src="https://github.com/user-attachments/assets/05150759-8846-4b46-aa21-97063959813c" />
+<img width="2066" height="994" alt="Captura de pantalla 2026-03-26 002131" src="https://github.com/user-attachments/assets/cb789c1a-3b91-4e12-b249-f4b2b5d8ce3d" />
+
 
 <br>
 
