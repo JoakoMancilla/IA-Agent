@@ -154,38 +154,13 @@ git clone https://github.com/JoakoMancilla/IA-Agent.git
 cd IA-Agent
 ```
 
-**2. Crear entorno virtual**
-
-```bash
-# Linux / Mac
-python -m venv venv && source venv/bin/activate
-
-# Windows
-venv\Scripts\activate
-```
-
-**3. Instalar dependencias**
+**2. Instalar dependencias**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Configurar `.env`**
-
-```env
-# LLM
-GOOGLE_API_KEY=tu_api_key
-
-# Base de datos vectorial
-DATABASE_URL=postgresql://usuario:password@localhost:5432/tu_base
-
-# Langfuse — observabilidad
-LANGFUSE_PUBLIC_KEY=tu_public_key
-LANGFUSE_SECRET_KEY=tu_secret_key
-LANGFUSE_HOST=https://cloud.langfuse.com
-```
-
-**5. Inicializar pgvector**
+**3. Inicializar pgvector**
 
 ```sql
 CREATE EXTENSION vector;
@@ -194,7 +169,7 @@ CREATE EXTENSION vector;
 **6. Ingestar documentos**
 
 ```bash
-python ingest.py
+python index_docs.py
 
 # [✔] Documentos cargados
 # [✔] Chunks generados
@@ -224,12 +199,12 @@ IA-Agent/
 │   └── math_agent.py        # Sub-agente matemático
 │
 ├── RAG/
-│   ├── ingest.py            # Carga e indexación de documentos
-│   └── retriever.py         # Recuperación semántica
+│   ├── index_docs.py        # Carga e indexación de documentos (solo ruta de documentos)
+│   └── manage_rag.py        # Lógica de búsqueda, conexión e inyección de datos
 │
 ├── tools/                   # Herramientas disponibles para los agentes
 │
-├── .env.example
+├── .env
 ├── requirements.txt
 └── README.md
 ```
@@ -240,15 +215,12 @@ IA-Agent/
 
 ```
 [x] Agente conversacional con RAG
+[x] Memoria conversacional persistente
 [x] Arquitectura multi-agente  (supervisor + 4 sub-agentes)
 [x] Base de datos vectorial    (PostgreSQL + pgvector)
 [x] CLI estilizado             (Rich)
 [x] Observabilidad             (Langfuse — en desarrollo)
-[ ] Streaming de respuestas
-[ ] Memoria conversacional persistente
 [ ] Nuevos sub-agentes especializados
-[ ] Tools especializadas por dominio
-[ ] Interfaz web
 ```
 
 ---
