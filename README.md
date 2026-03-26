@@ -46,7 +46,7 @@ $ python main.py
 
 ---
 
-## `$ cat README.md`
+## `> _ README.md`
 
 **IA-Agent** es un sistema de inteligencia artificial conversacional que corre desde la terminal. Un **agente supervisor** recibe tus consultas y delega al sub-agente más adecuado — ya sea buscar en tus documentos, navegar la web, procesar archivos o resolver matemáticas. Todo el flujo es monitoreable en tiempo real con **Langfuse**.
 
@@ -54,7 +54,7 @@ $ python main.py
 
 ---
 
-## `$ ls -la agents/`
+## `> _ agents/`
 
 ```
 drwxr-xr-x  agent/
@@ -76,7 +76,7 @@ drwxr-xr-x  agent/
 
 ---
 
-## `$ cat architecture.txt`
+## `> _ workflow`
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -85,8 +85,8 @@ drwxr-xr-x  agent/
                              │
                              ▼
                ┌─────────────────────────┐
-               │     Agente Supervisor    │
-               │   (orquesta y enruta)    │
+               │     Agente Supervisor   │
+               │   (orquesta y enruta)   │
                └────────────┬────────────┘
                             │
           ┌─────────┬───────┴───────┬─────────┐
@@ -98,11 +98,11 @@ drwxr-xr-x  agent/
           │
           ▼
    ┌─────────────────────────┐
-   │       RAG Pipeline       │
-   │  ├── Document Loader     │
-   │  ├── Text Splitter       │
-   │  ├── Embeddings          │
-   │  └── PostgreSQL+pgvector │
+   │       RAG Pipeline      │
+   │  ├── Document Loader    │
+   │  ├── Text Splitter      │
+   │  ├── Embeddings         │
+   │  └── PostgreSQL+pgvector│
    └─────────────────────────┘
 
   ════════════════════════════════════════
@@ -113,7 +113,7 @@ drwxr-xr-x  agent/
 
 ---
 
-## `$ tail -f langfuse.log`
+## `> _ langfuse.log`
 
 IA-Agent integra **Langfuse** para monitorear cada paso del sistema en tiempo real: qué agente se activó, cuántos tokens consumió, cuánto tardó y qué respondió.
 
@@ -128,7 +128,7 @@ IA-Agent integra **Langfuse** para monitorear cada paso del sistema en tiempo re
 
 ---
 
-## `$ pip install -r requirements.txt`
+## `> _ pip install -r requirements.txt`
 
 **Stack tecnológico:**
 
@@ -145,7 +145,7 @@ dependencies = {
 
 ---
 
-## `$ ./setup.sh`
+## `> _ setup`
 
 **1. Clonar el repositorio**
 
@@ -184,7 +184,7 @@ python main.py
 
 ---
 
-## `$ cat project_tree.txt`
+## `$> _ project_tree`
 
 ```
 IA-Agent/
@@ -211,7 +211,7 @@ IA-Agent/
 
 ---
 
-## `$ cat roadmap.md`
+## `> _ roadmap.md`
 
 ```
 [x] Agente conversacional con RAG
@@ -225,7 +225,7 @@ IA-Agent/
 
 ---
 
-## `$ cat LICENSE`
+## `> _ LICENSE`
 
 ```
 MIT License · JoakoMancilla · 2025
