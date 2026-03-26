@@ -29,17 +29,6 @@
 $ python main.py
 ```
 
-```
-╭──────────────────────────────────────────────────────────────╮
-│  IA-Agent v1.0  │  Multi-Agent · RAG · CLI                   │
-│  Supervisor online · 4 sub-agents loaded · pgvector ready    │
-╰──────────────────────────────────────────────────────────────╯
-
-[supervisor] Agente listo. Escribe tu consulta o 'exit' para salir.
-
-> _
-```
-
 <img width="2066" height="994" alt="Captura de pantalla 2026-03-26 002131" src="https://github.com/user-attachments/assets/cb789c1a-3b91-4e12-b249-f4b2b5d8ce3d" />
 
 
