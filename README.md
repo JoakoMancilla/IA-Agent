@@ -14,7 +14,7 @@
 ╚════════════════════════════════════════════════════════════════════╝
 ```
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![LangChain](https://img.shields.io/badge/LangChain-Framework-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-pgvector-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org)
 [![Langfuse](https://img.shields.io/badge/Langfuse-Observability-FF6B35?style=for-the-badge&logo=grafana&logoColor=white)](https://langfuse.com)
@@ -134,7 +134,7 @@ IA-Agent integra **Langfuse** para monitorear cada paso del sistema en tiempo re
 
 ```python
 dependencies = {
-    "language"  : "Python 3.10+",
+    "language"  : "Python 3.12+",
     "framework" : "LangChain",
     "database"  : "PostgreSQL + pgvector",
     "llm"       : "Google Gemini / OpenAI API",
